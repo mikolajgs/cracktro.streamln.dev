@@ -1,0 +1,114 @@
+<html>
+<head><title>laatu!</title></head>
+<style>
+body {
+    margin:0;
+    padding:0;
+    background: #000000;
+    overflow: hidden;
+}
+@keyframes slidein {
+    0% {
+        margin-left:-100px;
+        color: #ffffff;
+    }
+
+    100% {
+        margin-left:100px;
+        color: #eeeeee;
+    }
+}
+#t {
+    color: #ffffff;
+    position: absolute;
+    font-weight: bold;
+    animation-duration: 2s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    z-index:1000;
+}
+#c {
+    color: #000000;
+    font-size:10px;
+    position:absolute;
+    right:0px;
+    top:0px;
+    font-weight:bold;
+    z-index:1001;
+}
+</style>
+<script>
+var coloursInterval = null;
+function getRandomColour() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+function randomiseColours() {
+    var d = document;
+    var els = d.body.getElementsByClassName('s');
+    for (var i = 0; i < els.length; i++) {
+        els[i].style.background = getRandomColour();
+    }
+}
+function init() {
+    var w = window,
+        d = document,
+        e = d.documentElement,
+        g = d.getElementsByTagName('body')[0],
+        x = w.innerWidth || e.clientWidth || g.clientWidth,
+        y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    var els = d.body.getElementsByClassName('s');
+    for (var i = 0; i < els.length; i++) {
+        d.body.removeChild(els[i]);
+    }
+    var stripHeight = 14;
+    var numberOfStrips = Math.ceil(y / stripHeight);
+    for (var i = 0; i < numberOfStrips; i++) {
+        var div = document.createElement('div');
+        div.style.position = 'absolute';
+        div.style.left = '0px';
+        div.style.top = (i * stripHeight) + 'px';
+        div.style.width = '100%';
+        div.style.height = stripHeight + 'px';
+        div.style.background = getRandomColour();
+        div.style.zIndex = 10;
+        div.className = 's';
+        d.body.appendChild(div);
+    }
+    clearInterval(coloursInterval);
+    coloursInterval = setInterval('randomiseColours()', 50);
+
+    var t = document.getElementById('t');
+    t.style.top = (Math.ceil((y/2) - (t.offsetHeight/2))) + 'px';
+    t.style.left = (Math.ceil((x/2) - (t.offsetWidth/2))) + 'px';
+
+}
+</script>
+<body onload="init();">
+<div id="t">
+<pre>
+
+      ..                              s                          
+x .d88"                              :8                          
+ 5888R                              .88       x.    .            
+ '888R         u           u       :888ooo  .@88k  z88u     z    
+  888R      us888u.     us888u.  -*8888888 ~"8888 ^8888   .d88u  
+  888R   .@88 "8888" .@88 "8888"   8888      8888  888R   ^*88"  
+  888R   9888  9888  9888  9888    8888      8888  888R     %"   
+  888R   9888  9888  9888  9888    8888      8888  888R          
+  888R   9888  9888  9888  9888   .8888Lu=   8888 ,888B .   dL   
+ .888B . 9888  9888  9888  9888   ^%888*    "8888Y 8888"  u@88e. 
+ ^*888%  "888*""888" "888*""888"    'Y"      `Y"   'YP    '*88"  
+   "%     ^Y"   ^Y'   ^Y"   ^Y'                             8%   
+                                                           .P    
+                                                           *     
+</pre>
+<pre style="text-align:center">[ Welcome to laatu! You will be redirected... ]</pre>
+</div>
+</body>
+</html>
